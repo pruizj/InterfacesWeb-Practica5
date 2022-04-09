@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React,{FC, useState} from "react";
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import Container from "./components/Container";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useQuery,
+  gql
+} from "@apollo/client";
 
+const client = new ApolloClient({
+  uri: 'https://rickandmortyapi.com/graphql',
+  cache: new InMemoryCache()
+});
+
+
+const App: FC = () =>{
+return ( 
+  <div>
+    <ApolloProvider client = {client}>
+      <div id={"modal-root"}></div>
+      <Container/>
+    </ApolloProvider>
+  </div>
+)
+}
 export default App;
